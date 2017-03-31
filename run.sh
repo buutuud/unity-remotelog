@@ -2,7 +2,7 @@
 export ROOT=$(cd `dirname $0`; pwd)
 export DAEMON=false
 export SKYNET=$ROOT/skynet
-export PORT=8964
+export PORT=8889
 export THREAD=8
 
 while getopts "Dkp:t:" arg
@@ -24,4 +24,5 @@ do
 	esac
 done
 
+echo "ROOT=$ROOT"
 $SKYNET/skynet $ROOT/config

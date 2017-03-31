@@ -213,16 +213,83 @@ local function dispatch(cfd)
 	socket.close(cfd)
 end
 
+function split(s, delimiter)
+    result = {};
+    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
+        table.insert(result, match);
+    end
+    return result;
+end
+function split(s)
+    t={}
+    for w in string.gmatch(s,"([^'$']+)") do     --按照“,”分割字符串
+        table.insert(t,w) 
+    end
+    return t
+end
+function lua_string_split(str, split_char)
+    local sub_str_tab = {};
+    while (true) do
+        local pos = string.find(str, split_char);
+        if (not pos) then
+            sub_str_tab[#sub_str_tab + 1] = str;
+            break;
+        end
+        local sub_str = string.sub(str, 1, pos - 1);
+        sub_str_tab[#sub_str_tab + 1] = sub_str;
+        str = string.sub(str, pos + 1, #str);
+    end
+
+    return sub_str_tab;
+end
+function split(s, delim)
+    assert (type (delim) == "string" and string.len (delim) > 0, "bad delimiter")
+    local start = 1
+    local t = {}  -- results table
+    -- find each instance of a string followed by the delimiter
+    while true do
+        local pos = string.find (s, delim, start, true) -- plain find
+
+        if not pos then
+            break
+        end
+
+        table.insert (t, string.sub (s, start, pos - 1))
+        start = pos + string.len (delim)
+    end -- while
+    -- insert final one (after last delimiter)
+    table.insert (t, string.sub (s, start))
+    return t
+end -- function split
+
+local function server()
+    local host
+    host = socket.udp(function(str, from)
+        --skynet.error("Remove failed: " .. tn .. " " .. err2)
+        local s = split(str,"$")
+        local sf = string.format("%10s|%10s|%10s",s[3],s[4],s[5])  
+        sf=string.gsub(sf, "%d+,", "")
+        sf=string.gsub(sf, "Byte%[%] ", "")
+        --for key, value in pairs(s) do
+            --skynet.error(key..'='..value)
+        --end
+        skynet.error(sf)--(str, socket.udp_address(from))
+        --socket.sendto(host, from, "OK " .. str)
+    end , "0.0.0.0", 8889)-- bind an address
+end
+
+
 skynet.start(function()
-	skynet.newservice("debug_console",8000)
-	cache.init(config.path)
-	local port = skynet.getenv("port") or 8964
-	skynet.error("Listen 0.0.0.0:"..port)
-	local fd = assert(socket.listen("0.0.0.0", port))
-	skynet.error("Worker:"..config.slave)
-	init_convert()
-	socket.start(fd, function(cfd, addr)
-		skynet.error(addr .. " connected")
-		dispatch(cfd)
-	end)
+    skynet.newservice("debug_console",8000)
+    cache.init(config.path)
+    local port = skynet.getenv("port") or 8964
+    skynet.error("Listen UDP 0.0.0.0:"..port)
+    skynet.fork(server)
+    --local fd = assert(socket.listen("0.0.0.0", port))
+    --skynet.error("Worker:"..config.slave)
+    --init_convert()
+    --socket.start(fd, function(cfd, addr)
+    --skynet.error(addr .. " connected")
+    --dispatch(cfd)
+    --end)
 end)
