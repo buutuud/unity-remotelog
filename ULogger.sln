@@ -1,13 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ULogger", "ULogger\ULogger.csproj", "{39290911-F681-4811-8E94-F5711A69BB4E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ULoggerClientTest", "ULoggerClientTest\ULoggerClientTest.csproj", "{427ADB1E-E6CC-4287-8B19-3C1D48D54818}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ULoggerTServer", "ULoggerTServer\ULoggerTServer.csproj", "{2DC516D0-C105-4EAA-8A87-F6C5A44966D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +21,6 @@ Global
 		{427ADB1E-E6CC-4287-8B19-3C1D48D54818}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{427ADB1E-E6CC-4287-8B19-3C1D48D54818}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{427ADB1E-E6CC-4287-8B19-3C1D48D54818}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2DC516D0-C105-4EAA-8A87-F6C5A44966D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2DC516D0-C105-4EAA-8A87-F6C5A44966D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2DC516D0-C105-4EAA-8A87-F6C5A44966D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2DC516D0-C105-4EAA-8A87-F6C5A44966D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
