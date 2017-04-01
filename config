@@ -1,7 +1,7 @@
 skynet = "$SKYNET/"
 root = "$ROOT/"
 port = $PORT
-pvr = "/home/cloud"
+pvr = "/home/yi"
 thread = $THREAD + 2
 logpath = root .. "run"
 harbor = 0
