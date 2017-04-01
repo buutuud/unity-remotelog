@@ -122,6 +122,12 @@ namespace ULogger
         {
             return string.Format("{0}{1}{2}{3}{4}{5}{6}{7}", mSpliter, ITime.Ticks.ToString(), mSpliter, ULoggerImp.ConvertLogLevel(ILevel), mSpliter, ITag, mSpliter, IContent);
         }
+
+        public string ToLogString()
+        {
+            string mSpliter = "|";
+            return string.Format("{0}{1,10}{2}{3,10}{4}{5,10}", mSpliter, ULoggerImp.ConvertLogLevel(ILevel), mSpliter, ITag, mSpliter, IContent);
+        }
     }
 
     public class ULoggerFilter

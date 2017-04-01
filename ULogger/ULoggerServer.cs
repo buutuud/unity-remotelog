@@ -96,11 +96,15 @@ namespace ULogger
                     if (nReceiveNumber > 0)
                     {
                         string strLog = Encoding.UTF8.GetString(bResult, 0, nReceiveNumber);
-                        if (LogCallback != null)
+                        pLog.Set(strLog);
+
+                        //写入日志文件
+                        var e = pRemote as IPEndPoint;
+                        if(e != null)
                         {
-                            pLog.Set(strLog);
-                            LogCallback(pLog);
+                            Log.Info(e.Address.ToString(), pLog.ToLogString());
                         }
+                        LogCallback?.Invoke(pLog);
                     }
                 }
                 catch (ThreadAbortException)
