@@ -1,9 +1,34 @@
 local skynet = require "skynet"
 local socket = require "socket"
+--local strings = _libs.strings
+local strings = require "strings"
 local command = {}
 local convert = {}
 local queue = {}
 local working = {}
+local colors = {
+    RESET = '\x1b[0m',
+    RED = '\x1b[31m',
+    GREEN = '\x1b[32m',
+    YELLOW = '\x1b[33m',
+    BLUE = '\x1b[34m',
+    MAGENTA = '\x1b[35m',
+    CYAN = '\x1b[36m',
+}
+
+-- local tags = {
+--     'MoonBox' = colors[GREEN],
+--     'Unity' = colors[CYAN],
+-- }
+
+function color( tag )
+    local s = tag:upper()
+    if string.find(s,'ERROR') then
+        return colors.RED .. tag .. colors.RESET
+    else
+        return colors.GREEN .. tag .. colors.RESET
+    end
+end
 
 function lua_string_split(str, split_char)
     local sub_str_tab = {};
@@ -44,7 +69,7 @@ local function server()
     local host
     host = socket.udp(function(str, from)
         local s = split(str,"$")
-        local sf = string.format("%10s|\x1b[32m%10s\x1b[0m|%10s",s[3],s[4],s[5])  
+        local sf = string.format("%10s|%10s|%10s",s[3],color(s[4]),s[5])  
         skynet.error(sf)
     end , "0.0.0.0", 8889)-- bind an address
 end

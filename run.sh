@@ -25,4 +25,5 @@ do
 done
 
 echo "ROOT=$ROOT"
+ifconfig | awk '/inet /{print $2}'
 $SKYNET/skynet $ROOT/config
